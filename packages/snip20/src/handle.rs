@@ -97,6 +97,16 @@ pub enum HandleMsg {
         code_hash: String,
         padding: Option<String>,
     },
+
+    // Admin
+    ChangeAdmin {
+        address: HumanAddr,
+        padding: Option<String>,
+    },
+    SetContractStatus {
+        level: ContractStatusLevel,
+        padding: Option<String>,
+    },
 }
 
 impl HandleMsg {
@@ -554,6 +564,22 @@ pub fn set_minters_msg(
     contract_addr: HumanAddr,
 ) -> StdResult<CosmosMsg> {
     HandleMsg::SetMinters { minters, padding }.to_cosmos_msg(
+        block_size,
+        callback_code_hash,
+        contract_addr,
+        None,
+    )
+}
+
+/// Returns a StdResult<CosmosMsg> used to execute ChangeAdmin
+pub fn change_admin_msg(
+    address: HumanAddr,
+    padding: Option<String>,
+    block_size: usize,
+    callback_code_hash: String,
+    contract_addr: HumanAddr,
+) -> StdResult<CosmosMsg> {
+    HandleMsg::ChangeAdmin { address, padding }.to_cosmos_msg(
         block_size,
         callback_code_hash,
         contract_addr,
