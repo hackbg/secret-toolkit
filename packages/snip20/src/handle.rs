@@ -103,10 +103,6 @@ pub enum HandleMsg {
         address: HumanAddr,
         padding: Option<String>,
     },
-    SetContractStatus {
-        level: ContractStatusLevel,
-        padding: Option<String>,
-    },
 }
 
 impl HandleMsg {
